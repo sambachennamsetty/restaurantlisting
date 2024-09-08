@@ -35,6 +35,7 @@ public class RestaurantService {
 
     public ResponseEntity<RestaurantDTO> findRestaurantByID(Integer id) {
         Optional<Restaurant> restaurant = restaurantRepo.findById(id);
+        System.out.println("test");
         if (restaurant.isPresent())
             return new ResponseEntity<>(RestaurantMapper.INSTANCE.mapRestaurantToRestaurantDto(restaurant.get()), HttpStatus.OK);
 
