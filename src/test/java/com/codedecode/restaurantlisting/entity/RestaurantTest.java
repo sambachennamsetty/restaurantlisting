@@ -27,7 +27,7 @@ class RestaurantTest {
     @Test
     void testNoArgsConstructor() {
         Restaurant restaurant = new Restaurant();
-        assertNotNull(restaurant);  // Just testing that the object can be created.
+        assertNotNull(restaurant);  // Verifies that an instance can be created with no arguments.
     }
 
     @Test
@@ -50,8 +50,34 @@ class RestaurantTest {
         Restaurant restaurant1 = new Restaurant(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
         Restaurant restaurant2 = new Restaurant(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
 
+        // Same values
         assertEquals(restaurant1, restaurant2);
         assertEquals(restaurant1.hashCode(), restaurant2.hashCode());
+
+        // Different ID
+        restaurant2.setId(2);
+        assertNotEquals(restaurant1, restaurant2);
+        assertNotEquals(restaurant1.hashCode(), restaurant2.hashCode());
+
+        // Null comparison
+        assertNotEquals(restaurant1, null);
+
+        // Different object type comparison
+        assertNotEquals(restaurant1, new Object());
+    }
+
+    @Test
+    void testEqualsWithNullValues() {
+        Restaurant restaurant1 = new Restaurant(null, null, null, null, null);
+        Restaurant restaurant2 = new Restaurant(null, null, null, null, null);
+
+        // Ensure two empty objects are equal
+        assertEquals(restaurant1, restaurant2);
+        assertEquals(restaurant1.hashCode(), restaurant2.hashCode());
+
+        // Set different values
+        restaurant1.setId(1);
+        assertNotEquals(restaurant1, restaurant2);
     }
 
     @Test

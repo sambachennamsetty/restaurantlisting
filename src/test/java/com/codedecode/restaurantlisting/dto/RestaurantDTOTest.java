@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 class RestaurantDTOTest {
 
     private RestaurantDTO restaurantDTO;
@@ -45,13 +50,40 @@ class RestaurantDTOTest {
         assertEquals("Updated Description", restaurantDTO.getRestaurantDescription());
     }
 
+    // Enhanced Equals and HashCode Test
     @Test
     void testEqualsAndHashCode() {
         RestaurantDTO restaurantDTO1 = new RestaurantDTO(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
         RestaurantDTO restaurantDTO2 = new RestaurantDTO(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
 
+        // Same values
         assertEquals(restaurantDTO1, restaurantDTO2);
         assertEquals(restaurantDTO1.hashCode(), restaurantDTO2.hashCode());
+
+        // Different ID
+        restaurantDTO2.setId(2);
+        assertNotEquals(restaurantDTO1, restaurantDTO2);
+        assertNotEquals(restaurantDTO1.hashCode(), restaurantDTO2.hashCode());
+
+        // Null comparison
+        assertNotEquals(restaurantDTO1, null);
+
+        // Different object type comparison
+        assertNotEquals(restaurantDTO1, new Object());
+    }
+
+    @Test
+    void testEqualsWithNullValues() {
+        RestaurantDTO restaurantDTO1 = new RestaurantDTO(null, null, null, null, null);
+        RestaurantDTO restaurantDTO2 = new RestaurantDTO(null, null, null, null, null);
+
+        // Ensure two empty objects are equal
+        assertEquals(restaurantDTO1, restaurantDTO2);
+        assertEquals(restaurantDTO1.hashCode(), restaurantDTO2.hashCode());
+
+        // Set different values
+        restaurantDTO1.setId(1);
+        assertNotEquals(restaurantDTO1, restaurantDTO2);
     }
 
     @Test
