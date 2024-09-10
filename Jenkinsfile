@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
-        IMAGE_TAG = "${env.BUILD_ID}"
+        VERSION = "${env.BUILD_ID}"
     }
 
 
@@ -60,12 +60,29 @@ pipeline {
         }
 
 
-        stage('Docker Build and Push') {
-            steps {
-                sh "echo 'Docker Hub Username: ${DOCKERHUB_CREDENTIALS.getUsername()}' && echo 'Docker Hub Password: ${DOCKERHUB_CREDENTIALS.getPassword()}' && echo 'Image Tag: ${IMAGE_TAG}'"
-                sh "echo '${DOCKERHUB_CREDENTIALS.getPassword()}' | docker login -u '${DOCKERHUB_CREDENTIALS.getUsername()}' --password-stdin"
-                sh "docker build -t sambachennamsetty/restaurant-listing-service:${IMAGE_TAG} ."
-                sh "docker push sambachennamsetty/restaurant-listing-service:${IMAGE_TAG}"
+        stages {
+            stage('Docker Build and Push') {
+                steps {
+                    script {
+                        // Print the Docker Hub credentials (user)
+                        echo "DOCKERHUB_CREDENTIALS_USR: ${DOCKERHUB_CREDENTIALS_USR}"
+
+                        // For security, avoid printing the password
+                        echo "DOCKERHUB_CREDENTIALS_PSW: ${$DOCKERHUB_CREDENTIALS_PSW}"
+
+                        // Print the version
+                        echo "VERSION: ${VERSION}"
+
+                        // Docker login
+                        sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
+
+                        // Build the Docker image
+                        sh 'docker build -t sambachennamsetty/restaurant-listing-service:${VERSION} .'
+
+                        // Push the Docker image to the registry
+                        sh 'docker push sambachennamsetty/restaurant-listing-service:${VERSION}'
+                    }
+                }
             }
         }
 
