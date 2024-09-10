@@ -67,7 +67,7 @@ pipeline {
                         echo "DOCKERHUB_CREDENTIALS_USR: ${DOCKERHUB_CREDENTIALS_USR}"
 
                         // For security, avoid printing the password
-                        echo "DOCKERHUB_CREDENTIALS_PSW: ${$DOCKERHUB_CREDENTIALS_PSW}"
+                       echo "DOCKERHUB_CREDENTIALS_PSW: [HIDDEN]"
 
                         // Print the version
                         echo "VERSION: ${VERSION}"
