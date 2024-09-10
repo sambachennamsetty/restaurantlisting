@@ -70,16 +70,16 @@ pipeline {
                        echo "DOCKERHUB_CREDENTIALS_PSW: [HIDDEN]"
 
                         // Print the version
-                        echo "VERSION: ${VERSION}"
+                        echo "VERSION: ${IMAGE_TAG}"
 
                         // Docker login
                         sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
 
                         // Build the Docker image
-                        sh 'docker build -t sambachennamsetty/restaurant-listing-service:${VERSION} .'
+                        sh 'docker build -t sambachennamsetty/restaurant-listing-service:${IMAGE_TAG} .'
 
                         // Push the Docker image to the registry
-                        sh 'docker push sambachennamsetty/restaurant-listing-service:${VERSION}'
+                        sh 'docker push sambachennamsetty/restaurant-listing-service:${IMAGE_TAG}'
                 }
             }
         }
