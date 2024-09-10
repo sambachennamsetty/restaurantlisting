@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
-        IMAGE_TAG = "${env.BUILD_ID}"
+        VERSION = "${env.BUILD_ID}"
     }
 
 
@@ -70,16 +70,16 @@ pipeline {
                        echo "DOCKERHUB_CREDENTIALS_PSW: [HIDDEN]"
 
                         // Print the version
-                        echo "VERSION: ${IMAGE_TAG}"
+                        echo "VERSION: ${VERSION}"
 
                         // Docker login
                         sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
 
                         // Build the Docker image
-                        sh 'docker build -t sambachennamsetty/restaurant-listing-service:${IMAGE_TAG} .'
+                        sh 'docker build -t sambachennamsetty/restaurant-listing-service:${VERSION} .'
 
                         // Push the Docker image to the registry
-                        sh 'docker push sambachennamsetty/restaurant-listing-service:${IMAGE_TAG}'
+                        sh 'docker push sambachennamsetty/restaurant-listing-service:${VERSION}'
                 }
             }
         }
