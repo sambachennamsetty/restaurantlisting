@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
-        VERSION = "${env.BUILD_ID}"
+        IMAGE_TAG = "${env.BUILD_ID}"
     }
 
 
@@ -60,10 +60,9 @@ pipeline {
         }
 
 
-        stages {
-            stage('Docker Build and Push') {
-                steps {
-                    script {
+        stage('Docker Build and Push') {
+            steps {
+                script {
                         // Print the Docker Hub credentials (user)
                         echo "DOCKERHUB_CREDENTIALS_USR: ${DOCKERHUB_CREDENTIALS_USR}"
 
@@ -81,7 +80,6 @@ pipeline {
 
                         // Push the Docker image to the registry
                         sh 'docker push sambachennamsetty/restaurant-listing-service:${VERSION}'
-                    }
                 }
             }
         }
