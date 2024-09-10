@@ -1,11 +1,11 @@
 pipeline {
   agent any
 
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
-    VERSION = "${env.BUILD_ID}"
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
+        IMAGE_TAG = "${env.BUILD_ID}"
+    }
 
-  }
 
   tools {
     maven "Maven"
@@ -60,13 +60,14 @@ pipeline {
         }
 
 
-      stage('Docker Build and Push') {
-      steps {
-          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-          sh 'docker build -t sambachennamsetty/restaurant-listing-service:${VERSION} .'
-          sh 'docker push sambachennamsetty/restaurant-listing-service:${VERSION}'
-      }
-    }
+        stage('Docker Build and Push') {
+            steps {
+                sh "echo 'Docker Hub Username: ${DOCKERHUB_CREDENTIALS.getUsername()}' && echo 'Docker Hub Password: ${DOCKERHUB_CREDENTIALS.getPassword()}' && echo 'Image Tag: ${IMAGE_TAG}'"
+                sh "echo '${DOCKERHUB_CREDENTIALS.getPassword()}' | docker login -u '${DOCKERHUB_CREDENTIALS.getUsername()}' --password-stdin"
+                sh "docker build -t sambachennamsetty/restaurant-listing-service:${IMAGE_TAG} ."
+                sh "docker push sambachennamsetty/restaurant-listing-service:${IMAGE_TAG}"
+            }
+        }
 
 
      stage('Cleanup Workspace') {
