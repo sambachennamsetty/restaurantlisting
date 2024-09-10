@@ -1,9 +1,5 @@
 package com.codedecode.restaurantlisting.dto;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,19 +16,19 @@ class RestaurantDTOTest {
 
     @Test
     void testAllArgsConstructor() {
-        RestaurantDTO restaurantDTO = new RestaurantDTO(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
+        RestaurantDTO restaurantdto = new RestaurantDTO(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
 
-        assertEquals(1, restaurantDTO.getId());
-        assertEquals("Test Restaurant", restaurantDTO.getName());
-        assertEquals("123 Test St", restaurantDTO.getAddress());
-        assertEquals("Test City", restaurantDTO.getCity());
-        assertEquals("A test restaurant", restaurantDTO.getRestaurantDescription());
+        assertEquals(1, restaurantdto.getId());
+        assertEquals("Test Restaurant", restaurantdto.getName());
+        assertEquals("123 Test St", restaurantdto.getAddress());
+        assertEquals("Test City", restaurantdto.getCity());
+        assertEquals("A test restaurant", restaurantdto.getRestaurantDescription());
     }
 
     @Test
     void testNoArgsConstructor() {
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
-        assertNotNull(restaurantDTO);  // Verifies that an instance can be created with no arguments.
+        RestaurantDTO restaurantdto = new RestaurantDTO();
+        assertNotNull(restaurantdto);  // Verifies that an instance can be created with no arguments.
     }
 
     @Test
@@ -66,7 +62,7 @@ class RestaurantDTOTest {
         assertNotEquals(restaurantDTO1.hashCode(), restaurantDTO2.hashCode());
 
         // Null comparison
-        assertNotEquals(restaurantDTO1, null);
+        assertNotEquals(null, restaurantDTO1);
 
         // Different object type comparison
         assertNotEquals(restaurantDTO1, new Object());

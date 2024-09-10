@@ -1,8 +1,9 @@
 package com.codedecode.restaurantlisting.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class RestaurantTest {
 
@@ -15,19 +16,19 @@ class RestaurantTest {
 
     @Test
     void testAllArgsConstructor() {
-        Restaurant restaurant = new Restaurant(1, "Test Restaurant", "123 Test St", "Test City", "A test restaurant");
+        Restaurant rest = new Restaurant(1, "Test Restaurant", "123 Test St", "Test City", "A test rest");
 
-        assertEquals(1, restaurant.getId());
-        assertEquals("Test Restaurant", restaurant.getName());
-        assertEquals("123 Test St", restaurant.getAddress());
-        assertEquals("Test City", restaurant.getCity());
-        assertEquals("A test restaurant", restaurant.getRestaurantDescription());
+        assertEquals(1, rest.getId());
+        assertEquals("Test Restaurant", rest.getName());
+        assertEquals("123 Test St", rest.getAddress());
+        assertEquals("Test City", rest.getCity());
+        assertEquals("A test rest", rest.getRestaurantDescription());
     }
 
     @Test
     void testNoArgsConstructor() {
-        Restaurant restaurant = new Restaurant();
-        assertNotNull(restaurant);  // Verifies that an instance can be created with no arguments.
+        Restaurant restau = new Restaurant();
+        assertNotNull(restau);  // Verifies that an instance can be created with no arguments.
     }
 
     @Test
@@ -60,7 +61,7 @@ class RestaurantTest {
         assertNotEquals(restaurant1.hashCode(), restaurant2.hashCode());
 
         // Null comparison
-        assertNotEquals(restaurant1, null);
+        assertNotEquals(null, restaurant1);
 
         // Different object type comparison
         assertNotEquals(restaurant1, new Object());
